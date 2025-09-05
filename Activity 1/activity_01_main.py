@@ -3,29 +3,54 @@ Description: A client program written to verify correctness of
 the activity classes.
 """
 __author__ = "ACE Faculty"
-__version__ = "1.0.0"
-__credits__ = ""
+__version__ = "1.1.4"
+__credits__ = "Mark Batac"
+
+
+from library_item.library_item import LibraryItem
+from genre.genre import Genre
 
 
 def main():
-    """Test the functionality of the methods encapsulated 
-    in this project.
-    """ 
-    # In the statements coded below, ensure that any statement that could result 
-    # in an exception is handled.  When exceptions are 'caught', display the exception 
-    # message to the console.
+    """
+    Test the functionality of the methods encapsulated in this project.
+    """
+    print("=== LibraryItem Client Program ===\n")
 
-    # 1. Code a statement which creates an instance of the LibraryItem class with valid inputs.
-    # Use your own unique valid values for the inputs to the class.
+    # 1. Create a LibraryItem instance with valid inputs
+    try:
+        item1 = LibraryItem("The Great Gatsby", "F. Scott Fitzgerald", Genre.FICTION)
+        print("LibraryItem created successfully!")
+    except ValueError as e:
+        print(f"Error: {e}")
 
+    # 2. Print attributes using accessors
+    try:
+        print(f"Title: {item1.title}")
+        print(f"Author: {item1.author}")
+        print(f"Genre: {item1.genre.name}")  # .name shows "FICTION"
+    except Exception as e:
+        print(f"Error accessing attributes: {e}")
 
-    # 2. Using the instance defined above, and the class Accessors, print 
-    # each of the attributes of the LibraryItem instance.
+    print("\n--- Testing Invalid Inputs ---")
 
-    
+    # 3a. Create a LibraryItem with a blank title
+    try:
+        item2 = LibraryItem("", "George Orwell", Genre.FICTION)
+    except ValueError as e:
+        print(f"Error: {e}")
 
-    # 3. Code a statement which creates an instance of the LibraryItem class with one or more invalid inputs.
-    # Use your own unique valid values for the inputs to the class.
+    # 3b. Create a LibraryItem with a blank author
+    try:
+        item3 = LibraryItem("1984", "", Genre.FICTION)
+    except ValueError as e:
+        print(f"Error: {e}")
+
+    # 3c. Create a LibraryItem with an invalid genre
+    try:
+        item4 = LibraryItem("The Hobbit", "J.R.R. Tolkien", "Adventure")
+    except ValueError as e:
+        print(f"Error: {e}")
 
 
 if __name__ == "__main__":
